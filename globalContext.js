@@ -67,4 +67,18 @@ export function CartProvider({ children }) {
       })
     );
   }
+
+  return (
+    <Context.Provider
+      value={{
+        products: cartProducts,
+        addAProductToCart: addOneToCart,
+        removeAProductFromCart: removeOneFromCart,
+        deleteFromCart: deleteFromCart,
+        getProductQuantity: getProductQuantity,
+      }}
+    >
+      {children}
+    </Context.Provider>
+  );
 }

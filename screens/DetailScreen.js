@@ -6,8 +6,10 @@ import {
   ImageBackground,
   Image,
   StyleSheet,
+  Button,
 } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
+import RoundedButton from "../components/RoundedButton";
 
 const DetailScreen = ({ route }) => {
   const { imageUrl, imageDescription } = route.params;
@@ -66,6 +68,22 @@ const DetailScreen = ({ route }) => {
           </View>
         ))}
       </View>
+      <View>
+        <RoundedButton
+          style={styles.roundedButton}
+          title="Add to cart"
+          buttonTextColor="#FFFFFF"
+          colorBackground="#DB3C25"
+        />
+        <View style={styles.margin} />
+        <RoundedButton
+          style={styles.secondRoundedButton}
+          title="Subscribe to a plan"
+          buttonTextColor="#DB3C25"
+          imageBorderWidth={2}
+          imageBorderColor="#DB3C25"
+        />
+      </View>
     </View>
   );
 };
@@ -81,5 +99,22 @@ const styles = StyleSheet.create({
     width: 200,
     height: 200,
     marginTop: 10,
+  },
+  roundedButton: {
+    borderRadius: 25,
+    marginRight: 30,
+    marginLeft: 40,
+    marginBottom: 30,
+  },
+  secondRoundedButton: {
+    borderRadius: 25,
+    marginRight: 30,
+    marginLeft: 40,
+    marginTop: 10,
+    backgroundColor: "#FFFFFF",
+    borderWidth: 2,
+  },
+  margin: {
+    height: 16,
   },
 });
