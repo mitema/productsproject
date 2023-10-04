@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import {
   View,
   Text,
@@ -10,12 +10,21 @@ import {
 } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
 import RoundedButton from "../components/RoundedButton";
+import { CartContext } from "../globalContext";
 
 const DetailScreen = ({ route }) => {
-  const { imageUrl, imageDescription } = route.params;
+  const [quantity, setProductQuantity] = useState(1);
+  const { products, addProductToCart, removeAProductFromCart } =
+    useContext(CartContext);
+  const { imageUrl, imageDescription, productId, productName, productPrice } =
+    route.params;
 
   console.log(`imageUrl: ${imageUrl}`);
   console.log(`imageDescription:${imageDescription}`);
+  console.log(`productID: ${productId}`);
+  console.log(`productName: ${productName}`);
+  console.log(`productPrice: ${productPrice}`);
+
   //   const jsonObject = {
   //     imageUrl: require(imageUrl),
   //   };
@@ -31,6 +40,34 @@ const DetailScreen = ({ route }) => {
 
   const toggleItem = (index) => {
     setActiveIndex(activeIndex === index ? null : index);
+  };
+  const handleAddButtonClicked = (productID) => {
+    console.log("positive button clicked");
+
+    setProductQuantity(quantity + 1);
+  };
+
+  const handleAddToCartPressed = (
+    productID,
+    productQuantity,
+    productName,
+    productPrice,
+    productUrl
+  ) => {
+    console.log("add to cart presserd");
+    addProductToCart(
+      productID,
+      productQuantity,
+      productName,
+      productPrice,
+      productUrl
+    );
+  };
+
+  const handleNegativeButtonClicked = (productID) => {
+    console.log("negative button clicked");
+    //removeAProductFromCart(productID);
+    setProductQuantity(quantity - 1);
   };
 
   return (
@@ -68,12 +105,40 @@ const DetailScreen = ({ route }) => {
           </View>
         ))}
       </View>
+
+      <View style={styles.arithmeticContainer}>
+        <View style={styles.quantityContainer}>
+          <TouchableOpacity onPress={() => handleAddButtonClicked(productId)}>
+            <View style={styles.plusQuantityTextContainer}>
+              <Text style={styles.plusQuantityText}>+</Text>
+            </View>
+          </TouchableOpacity>
+          <Text>{quantity}</Text>
+          <TouchableOpacity
+            onPress={() => handleNegativeButtonClicked(productId)}
+          >
+            <View style={styles.minusQuantityTextContainer}>
+              <Text style={styles.minusQuantityText}>-</Text>
+            </View>
+          </TouchableOpacity>
+        </View>
+      </View>
+
       <View>
         <RoundedButton
           style={styles.roundedButton}
           title="Add to cart"
           buttonTextColor="#FFFFFF"
           colorBackground="#DB3C25"
+          onPress={() =>
+            handleAddToCartPressed(
+              productId,
+              quantity,
+              productName,
+              productPrice,
+              imageUrl
+            )
+          }
         />
         <View style={styles.margin} />
         <RoundedButton
@@ -94,6 +159,38 @@ const styles = StyleSheet.create({
   container: {
     justifyContent: "center",
     alignItems: "center",
+  },
+  quantityContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+  },
+  arithmeticContainer: {
+    marginLeft: 30,
+    marginRight: 30,
+    marginTop: 30,
+  },
+  plusQuantityTextContainer: {
+    width: 50,
+    height: 50,
+    borderRadius: 5,
+    backgroundColor: "gray",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  minusQuantityTextContainer: {
+    width: 50,
+    height: 50,
+    borderRadius: 5,
+    backgroundColor: "gray",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  plusQuantityText: {
+    marginLeft: 10,
+  },
+  minusQuantityText: {
+    marginRight: 10,
   },
   image: {
     width: 200,

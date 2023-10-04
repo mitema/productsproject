@@ -10,10 +10,18 @@ const reduceLettersIfGreatherThan12 = (productName) => {
   return productName;
 };
 
+const getNumbersAfterDollarSign = (amountWithDollarSign) => {
+  console.log(`amountWithDollar : ${amountWithDollarSign}`);
+  var amountWithoutDollarSign = amountWithDollarSign.substring(1);
+  console.log(`amountWithoutDollarSign: ${amountWithoutDollarSign}`);
+
+  return amountWithoutDollarSign;
+};
+
 const getImageName = (digit) => {
   productsstoreArray.map((product) => {
     product.imageUrl == 5;
   });
 };
 
-export { reduceLettersIfGreatherThan12 };
+export { reduceLettersIfGreatherThan12, getNumbersAfterDollarSign };

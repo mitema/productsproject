@@ -9,52 +9,55 @@ import DetailScreen from "./screens/DetailScreen";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import EvilIcons from "react-native-vector-icons/EvilIcons";
 import AccountScreen from "./screens/AccountScreen";
+import { CartProvider } from "./globalContext";
 
 const Tab = createBottomTabNavigator();
 
 function App() {
   return (
-    <NavigationContainer>
-      <Tab.Navigator>
-        <Tab.Screen
-          name="Home"
-          component={HomeScreen}
-          options={{
-            tabBarIcon: ({ color, size }) => (
-              <Icon name="home-outline" color="gray" size={30} />
-            ),
-          }}
-        />
-        <Tab.Screen
-          name="Menu"
-          component={DetailScreen}
-          options={{
-            tabBarIcon: ({ color, size }) => (
-              <Icon name="menu" size={30} color="gray" />
-            ),
-          }}
-        />
-        <Tab.Screen
-          name="Cart"
-          component={CartScreen}
-          options={{
-            tabBarIcon: ({ color, size }) => (
-              <Icon name="cart-outline" size={30} color="gray" />
-            ),
-          }}
-        />
+    <CartProvider>
+      <NavigationContainer>
+        <Tab.Navigator>
+          <Tab.Screen
+            name="Home"
+            component={HomeScreen}
+            options={{
+              tabBarIcon: ({ color, size }) => (
+                <Icon name="home-outline" color="gray" size={30} />
+              ),
+            }}
+          />
+          <Tab.Screen
+            name="Menu"
+            component={DetailScreen}
+            options={{
+              tabBarIcon: ({ color, size }) => (
+                <Icon name="menu" size={30} color="gray" />
+              ),
+            }}
+          />
+          <Tab.Screen
+            name="Cart"
+            component={CartScreen}
+            options={{
+              tabBarIcon: ({ color, size }) => (
+                <Icon name="cart-outline" size={30} color="gray" />
+              ),
+            }}
+          />
 
-        <Tab.Screen
-          name="Account"
-          component={AccountScreen}
-          options={{
-            tabBarIcon: ({ color, size }) => (
-              <EvilIcons name="user" color="gray" size={30} />
-            ),
-          }}
-        />
-      </Tab.Navigator>
-    </NavigationContainer>
+          <Tab.Screen
+            name="Account"
+            component={AccountScreen}
+            options={{
+              tabBarIcon: ({ color, size }) => (
+                <EvilIcons name="user" color="gray" size={30} />
+              ),
+            }}
+          />
+        </Tab.Navigator>
+      </NavigationContainer>
+    </CartProvider>
   );
 }
 
